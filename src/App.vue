@@ -4,6 +4,7 @@
     data: function () {
       return {
         cars: [],
+        currentCar: {}
       };
     },
     created: function () {
@@ -16,6 +17,10 @@
           this.cars = response.data;
         });
       },
+      showCar: function (car) {
+       this.currentCar = car;
+       document.querySelector("#car-details").showModal();
+     },
     },
   };
 </script>
@@ -31,7 +36,21 @@
       <p>Model: {{ car.model }}</p>
       <p>Color: {{ car.color }}</p>
       <p>Year: {{ car.year }}</p>
+      <button v-on:click="showCar(car)">More Car Info</button>
     </div>
+    <dialog id="car-details">
+       <form method="dialog">
+         <h1>Car info</h1>
+         <p>Title: {{ currentCar.title }}</p>
+         <img :src="currentCar.image" alt="Car Image">
+         <p>Description: {{ currentCar.description }}</p>
+         <p>Make: {{ currentCar.make }}</p>
+         <p>Model: {{ currentCar.model }}</p>
+         <p>Color: {{ currentCar.color }}</p>
+         <p>Year: {{ currentCar.year }}</p>
+         <button>Close</button>
+       </form>
+     </dialog>
   </div>
 </template>
 
